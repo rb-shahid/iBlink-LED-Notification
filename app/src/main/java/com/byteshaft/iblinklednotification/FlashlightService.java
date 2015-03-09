@@ -35,6 +35,7 @@ public class FlashlightService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        service = null;
         mTelephonyManager.listen(mCallStateListener, PhoneStateListener.LISTEN_NONE);
     }
 
