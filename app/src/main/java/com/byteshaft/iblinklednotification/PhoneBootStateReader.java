@@ -3,10 +3,20 @@ package com.byteshaft.iblinklednotification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class PhoneBootStateReader extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, FlashlightService.class));
+        if (isServiceSettingEnabled(context)) {
+            context.startService(new Intent(context, FlashlightService.class));
+        }
+    }
+
+    private boolean isServiceSettingEnabled(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean("enabled", false);
     }
 }
