@@ -14,21 +14,29 @@ public class Flashlight extends Thread {
         // notification starts and becomes false when call is picked/dropped.
         // So we can rely on it to do our blinking.
         while (CallStateListener.isCallIncoming) {
-            blinkFlash(100, 300);
+            blinkFlash(150, 300);
         }
-        // As soon as the incoming call state ends, stop the thread
-        // so that the flashlight does not keep blinking.
-        interrupt();
-        // Also make sure to release any camera resources so that it
+        // Make sure to release any camera resources so that it
         // can be used by other Apps.
         releaseCamera();
     }
 
     private void blinkFlash(int onPeriod, int offPeriod) {
+        try {
+            if (mCamera == null) {
+                mCamera = Camera.open();
+            }
+        } catch (RuntimeException e) {
+            CallStateListener.isCallIncoming = false;
+            return;
+        }
         turnOnFlash();
         causeSleep(onPeriod);
         turnOffFlash();
         causeSleep(offPeriod);
+        turnOnFlash();
+        causeSleep(500);
+        turnOffFlash();
     }
 
     private void causeSleep(int delay) {
@@ -40,9 +48,6 @@ public class Flashlight extends Thread {
     }
 
     private void turnOnFlash() {
-        if (mCamera == null) {
-            openCamera();
-        }
         Camera.Parameters parameters = mCamera.getParameters();
         parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         mCamera.setParameters(parameters);
@@ -56,10 +61,6 @@ public class Flashlight extends Thread {
             mCamera.setParameters(parameters);
             mCamera.stopPreview();
         }
-    }
-
-    private void openCamera() {
-        mCamera = Camera.open();
     }
 
     private void releaseCamera() {
