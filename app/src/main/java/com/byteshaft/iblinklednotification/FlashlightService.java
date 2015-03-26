@@ -43,7 +43,6 @@ public class FlashlightService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
     private TelephonyManager getTelephonyManager() {
         return (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     }

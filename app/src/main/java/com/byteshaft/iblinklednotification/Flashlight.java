@@ -1,7 +1,6 @@
 package com.byteshaft.iblinklednotification;
 
 import android.hardware.Camera;
-
 @SuppressWarnings("deprecation")
 public class Flashlight extends Thread {
 
