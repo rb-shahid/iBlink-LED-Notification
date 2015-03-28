@@ -13,6 +13,7 @@ public class MainActivity extends ActionBarActivity implements Switch.OnCheckedC
 
     Switch mSwitch;
     Switch mSwitch1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

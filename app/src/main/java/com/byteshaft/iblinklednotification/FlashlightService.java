@@ -22,7 +22,7 @@ public class FlashlightService extends Service {
         service = this;
         mTelephonyManager = getTelephonyManager();
         if (mCallStateListener == null) {
-            mCallStateListener = new CallStateListener();
+            mCallStateListener = new CallStateListener(this);
         }
         mTelephonyManager.listen(mCallStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
