@@ -22,7 +22,7 @@ public class FlashlightService extends Service {
         service = this;
         mTelephonyManager = getTelephonyManager();
         if (mCallStateListener == null) {
-            mCallStateListener = new CallStateListener();
+            mCallStateListener = new CallStateListener(this);
         }
         mTelephonyManager.listen(mCallStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
@@ -43,7 +43,6 @@ public class FlashlightService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
     private TelephonyManager getTelephonyManager() {
         return (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     }
