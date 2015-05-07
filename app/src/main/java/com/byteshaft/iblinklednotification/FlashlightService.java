@@ -17,18 +17,13 @@ public class FlashlightService extends Service {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public int onStartCommand(Intent intent, int flags, int startId) {
         sService = this;
         mTelephonyManager = getTelephonyManager();
         if (mCallStateListener == null) {
             mCallStateListener = new CallStateListener(this);
         }
         mTelephonyManager.listen(mCallStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
 
@@ -43,6 +38,7 @@ public class FlashlightService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     private TelephonyManager getTelephonyManager() {
         return (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
     }
