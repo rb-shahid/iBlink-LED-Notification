@@ -9,7 +9,7 @@ import android.telephony.TelephonyManager;
 public class FlashlightService extends Service {
 
     private TelephonyManager mTelephonyManager;
-    private static CallStateListener mCallStateListener;
+    private CallStateListener mCallStateListener;
     private static FlashlightService sService;
 
     public static FlashlightService getInstance() {
@@ -17,13 +17,16 @@ public class FlashlightService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
+        super.onCreate();
         sService = this;
         mTelephonyManager = getTelephonyManager();
-        if (mCallStateListener == null) {
-            mCallStateListener = new CallStateListener(this);
-        }
+        mCallStateListener = new CallStateListener(this);
         mTelephonyManager.listen(mCallStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
 
