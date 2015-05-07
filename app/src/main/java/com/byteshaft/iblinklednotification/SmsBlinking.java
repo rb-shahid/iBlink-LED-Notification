@@ -13,8 +13,8 @@ public class SmsBlinking extends BroadcastReceiver implements CameraStateChangeL
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Helpers mHelpers = new Helpers(context);
-        if (mHelpers.isSmsBlinkingEnabled(context)) {
+        Helpers helpers = new Helpers(context.getApplicationContext());
+        if (helpers.isSmsBlinkingEnabled()) {
             mFlashlight = new Flashlight(context);
             mFlashlight.setOnCameraStateChangedListener(this);
             mFlashlight.initializeCamera();

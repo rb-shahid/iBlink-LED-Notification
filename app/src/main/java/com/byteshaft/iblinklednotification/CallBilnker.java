@@ -12,10 +12,10 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Helpers mHlepers = new Helpers(context);
+        Helpers hlepers = new Helpers(context.getApplicationContext());
 
         Toast.makeText(context.getApplicationContext(), "Received", Toast.LENGTH_SHORT).show();
-        if (mHlepers.isSmsBlinkingEnabled(context)) {
+        if (hlepers.isSmsBlinkingEnabled()) {
             mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
             mFlashlight.setOnCameraStateChangedListener(this);
             mFlashlight.initializeCamera();
