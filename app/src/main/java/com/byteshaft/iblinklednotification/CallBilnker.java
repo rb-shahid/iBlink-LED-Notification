@@ -8,8 +8,7 @@ import com.byteshaft.ezflashlight.CameraStateChangeListener;
 
 public class CallBilnker extends BroadcastReceiver implements CameraStateChangeListener {
     private com.byteshaft.ezflashlight.Flashlight mFlashlight;
-    private int i = 0;
-
+    private int mPatternRecursionCounter = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -23,25 +22,25 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
 
     public void blinkingMode() {
         final int pattern[] = {0, 25, 75, 20, 100, 25, 30};
-        if (i > pattern.length - 1 && CallStateListener.isCallIncoming()) {
-            i = 0;
-        } else if (i > pattern.length - 1) {
+        if (mPatternRecursionCounter > pattern.length - 1 && CallStateListener.isCallIncoming()) {
+            mPatternRecursionCounter = 0;
+        } else if (mPatternRecursionCounter > pattern.length - 1) {
             mFlashlight.releaseAllResources();
             return;
         }
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i % 2 == 0 && CallStateListener.isCallIncoming()) {
+                if (mPatternRecursionCounter % 2 == 0 && CallStateListener.isCallIncoming()) {
                     mFlashlight.turnOn();
                 } else {
                     mFlashlight.turnOff();
 
                 }
-                i += 1;
+                mPatternRecursionCounter += 1;
                 blinkingMode();
             }
-        }, pattern[i]);
+        }, pattern[mPatternRecursionCounter]);
     }
 
     @Override

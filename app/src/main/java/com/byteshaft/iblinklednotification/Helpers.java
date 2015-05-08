@@ -20,9 +20,9 @@ public class Helpers extends ContextWrapper{
         sharedPreferences.edit().putBoolean("call_blink", enable).apply();
     }
 
-    void saveServiceStateEnabled(boolean ENABLED) {
+    void saveServiceStateEnabled(boolean enable) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean("enabled", ENABLED).apply();
+        sharedPreferences.edit().putBoolean("enabled", enable).apply();
     }
     boolean isSmsBlinkingEnabled() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

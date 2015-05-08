@@ -29,12 +29,11 @@ public class MainActivity extends ActionBarActivity implements Switch.OnCheckedC
                 if (isChecked) {
                     if (FlashlightService.getInstance() == null) {
                         startService(new Intent(this, FlashlightService.class));
-                        mHelpers.saveServiceStateEnabled(true);
                     }
                 } else {
                     stopService(new Intent(this, FlashlightService.class));
-                    mHelpers.saveServiceStateEnabled(false);
                 }
+                mHelpers.saveServiceStateEnabled(isChecked);
                 break;
             case R.id.sms_switch:
                 mHelpers.enableSmsBlink(isChecked);
