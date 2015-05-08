@@ -3,19 +3,17 @@ package com.byteshaft.iblinklednotification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.byteshaft.ezflashlight.CameraStateChangeListener;
 
 public class CallBilnker extends BroadcastReceiver implements CameraStateChangeListener {
     private com.byteshaft.ezflashlight.Flashlight mFlashlight;
+    private int i = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Helpers hlepers = new Helpers(context.getApplicationContext());
-
-        Toast.makeText(context.getApplicationContext(), "Received", Toast.LENGTH_SHORT).show();
-        if (hlepers.isSmsBlinkingEnabled()) {
+        if (hlepers.isCallBlinkingEnabled()) {
             mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
             mFlashlight.setOnCameraStateChangedListener(this);
             mFlashlight.initializeCamera();
@@ -23,25 +21,24 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
     }
 
     public void blinkingMode() {
-        mFlashlight.turnOn();
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        final int pattern[] = {0, 200, 300, 200, 400, 100, 200};
+        if (i > pattern.length - 1) {
+            mFlashlight.releaseAllResources();
+            return;
         }
-        mFlashlight.turnOff();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mFlashlight.turnOn();
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mFlashlight.releaseAllResources();
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (i % 2 == 0) {
+                    mFlashlight.turnOn();
+                } else {
+                    mFlashlight.turnOff();
+
+                }
+                i += 1;
+                blinkingMode();
+            }
+        }, pattern[i]);
     }
 
     @Override

@@ -10,8 +10,31 @@ public class Helpers extends ContextWrapper{
         super(base);
     }
 
+    boolean isCallBlinkingEnabled() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getBoolean("call_blink", false);
+    }
+
+    void enableCallBlink(boolean enable) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean("call_blink", enable).apply();
+    }
+
+    void saveServiceStateEnabled(boolean ENABLED) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean("enabled", ENABLED).apply();
+    }
     boolean isSmsBlinkingEnabled() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getBoolean("smsblink", false);
+    }
+
+    void enableSmsBlink(boolean enable) {
+        SharedPreferences sharedPreferences = getPreferenceManager();
+        sharedPreferences.edit().putBoolean("smsblink", enable).apply();
+    }
+
+    public SharedPreferences getPreferenceManager() {
+        return PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 }
