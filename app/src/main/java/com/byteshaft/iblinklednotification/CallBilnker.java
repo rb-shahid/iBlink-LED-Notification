@@ -10,6 +10,7 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
     private com.byteshaft.ezflashlight.Flashlight mFlashlight;
     private int i = 0;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Helpers hlepers = new Helpers(context.getApplicationContext());
@@ -22,7 +23,9 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
 
     public void blinkingMode() {
         final int pattern[] = {0, 200, 300, 200, 400, 100, 200};
-        if (i > pattern.length - 1) {
+        if (i > pattern.length - 1 && CallStateListener.isCallIncoming()) {
+            i = 0;
+        } else if (i > pattern.length - 1) {
             mFlashlight.releaseAllResources();
             return;
         }

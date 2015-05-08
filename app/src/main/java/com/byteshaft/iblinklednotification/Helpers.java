@@ -26,12 +26,12 @@ public class Helpers extends ContextWrapper{
     }
     boolean isSmsBlinkingEnabled() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return sharedPreferences.getBoolean("smsblink", false);
+        return sharedPreferences.getBoolean("sms_blink", false);
     }
 
     void enableSmsBlink(boolean enable) {
         SharedPreferences sharedPreferences = getPreferenceManager();
-        sharedPreferences.edit().putBoolean("smsblink", enable).apply();
+        sharedPreferences.edit().putBoolean("sms_blink", enable).apply();
     }
 
     public SharedPreferences getPreferenceManager() {
