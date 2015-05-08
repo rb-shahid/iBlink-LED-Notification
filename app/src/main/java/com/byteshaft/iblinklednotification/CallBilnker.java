@@ -13,8 +13,8 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Helpers hlepers = new Helpers(context.getApplicationContext());
-        if (hlepers.isCallBlinkingEnabled()) {
+        Helpers helpers = new Helpers(context.getApplicationContext());
+        if (helpers.isCallBlinkingEnabled()) {
             mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
             mFlashlight.setOnCameraStateChangedListener(this);
             mFlashlight.initializeCamera();
@@ -22,7 +22,7 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
     }
 
     public void blinkingMode() {
-        final int pattern[] = {0, 200, 300, 200, 400, 100, 200};
+        final int pattern[] = {0, 25, 75, 20, 100, 25, 30};
         if (i > pattern.length - 1 && CallStateListener.isCallIncoming()) {
             i = 0;
         } else if (i > pattern.length - 1) {
@@ -32,7 +32,7 @@ public class CallBilnker extends BroadcastReceiver implements CameraStateChangeL
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i % 2 == 0) {
+                if (i % 2 == 0 && CallStateListener.isCallIncoming()) {
                     mFlashlight.turnOn();
                 } else {
                     mFlashlight.turnOff();
