@@ -1,25 +1,32 @@
 package com.byteshaft.iblinklednotification;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class MainActivity extends ActionBarActivity implements Switch.OnCheckedChangeListener {
+public class MainActivity extends Activity implements Switch.OnCheckedChangeListener,
+        Button.OnClickListener {
     private Helpers mHelpers;
     private Switch mCallSwitch;
     private Switch mSmsSwitch;
+    private Button closeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHelpers = new Helpers(getApplicationContext());
         setContentView(R.layout.activity_main);
+        closeButton = (Button) findViewById(R.id.close_button);
+        closeButton.setOnClickListener(this);
         mCallSwitch = (Switch) findViewById(R.id.call_switch);
         mSmsSwitch = (Switch) findViewById(R.id.sms_switch);
         mCallSwitch.setOnCheckedChangeListener(this);
         mSmsSwitch.setOnCheckedChangeListener(this);
+        setFinishOnTouchOutside(false);
     }
 
     @Override
@@ -46,5 +53,14 @@ public class MainActivity extends ActionBarActivity implements Switch.OnCheckedC
         super.onResume();
         mCallSwitch.setChecked(mHelpers.isCallBlinkingEnabled());
         mSmsSwitch.setChecked(mHelpers.isSmsBlinkingEnabled());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.close_button:
+                finish();
+        }
+
     }
 }
