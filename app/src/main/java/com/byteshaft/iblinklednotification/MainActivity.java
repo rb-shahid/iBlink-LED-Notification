@@ -8,17 +8,18 @@ import android.widget.Switch;
 
 public class MainActivity extends ActionBarActivity implements Switch.OnCheckedChangeListener {
     private Helpers mHelpers;
+    private Switch mCallSwitch;
+    private Switch mSmsSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHelpers = new Helpers(getApplicationContext());
         setContentView(R.layout.activity_main);
-        Switch mCallSwitch = (Switch) findViewById(R.id.call_switch);
-        Switch smsSwitch = (Switch) findViewById(R.id.sms_switch);
+        mCallSwitch = (Switch) findViewById(R.id.call_switch);
+        mSmsSwitch = (Switch) findViewById(R.id.sms_switch);
         mCallSwitch.setOnCheckedChangeListener(this);
-        smsSwitch.setOnCheckedChangeListener(this);
-
+        mSmsSwitch.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -38,5 +39,12 @@ public class MainActivity extends ActionBarActivity implements Switch.OnCheckedC
             case R.id.sms_switch:
                 mHelpers.enableSmsBlink(isChecked);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCallSwitch.setChecked(mHelpers.isCallBlinkingEnabled());
+        mSmsSwitch.setChecked(mHelpers.isSmsBlinkingEnabled());
     }
 }
