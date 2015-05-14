@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/BlinkForCall"
-        android:layout_marginLeft="10dp"
-        android:layout_margin="5dp"/>
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true" />
 
     <Switch
 
@@ -22,20 +22,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/BlinkForSMS"
-        android:layout_marginLeft="10dp"
-        android:layout_margin="5dp"/>
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/call_switch"
+        android:layout_alignRight="@+id/call_switch"
+        android:layout_alignEnd="@+id/call_switch" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="@android:color/holo_blue_dark"/>
+        android:background="@android:color/holo_blue_dark"
+        android:id="@+id/view" />
 
     <Button
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Close"
+        android:text="Exit"
         android:id="@+id/close_button"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="100dp"
+    android:paddingLeft="15dp"
+    android:layout_below="@+id/sms_switch"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Select Pattern "
+        android:textColor="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_margin="10dp"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pattern_group">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:id="@+id/normal_frequency"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="slow"
+            android:id="@+id/slow_frequency"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fast"
+            android:id="@+id/fast_frequency"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="very fast"
+            android:checked="false"
+            android:id="@+id/very_fast_frequency" />
+    </RadioGroup>
+
+
 
 </LinearLayout>
+
+</RelativeLayout>
