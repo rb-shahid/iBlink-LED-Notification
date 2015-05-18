@@ -1,15 +1,15 @@
 package com.byteshaft.iblinklednotification;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
-public class MainActivity extends ActionBarActivity implements Switch.OnCheckedChangeListener,
+public class MainActivity extends Activity implements Switch.OnCheckedChangeListener,
         Button.OnClickListener, RadioGroup.OnCheckedChangeListener {
     
     private Helpers mHelpers;

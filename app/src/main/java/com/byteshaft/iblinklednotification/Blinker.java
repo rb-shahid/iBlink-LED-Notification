@@ -108,6 +108,5 @@ public class Blinker extends BroadcastReceiver implements CameraStateChangeListe
 
     @Override
     public void onFlashlightTurnedOff() {
-
     }
 }
