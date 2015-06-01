@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -33,7 +32,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
         mCallSwitch.setOnCheckedChangeListener(this);
         mSmsSwitch.setOnCheckedChangeListener(this);
         setFinishOnTouchOutside(false);
-        getSelectedPatern();
+        getSelectedPattern();
 
     }
 
@@ -89,7 +88,6 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
                 break;
         }
         saveFrequencySetting(checkedId);
-        Log.i("freq", "autoAnswer radioButton" + checkedId);
     }
 
     void saveFrequencySetting(int value) {
@@ -97,7 +95,7 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
         frequencySetting.edit().putInt("selectedFreq" , value).apply();
     }
 
-    void getSelectedPatern() {
+    void getSelectedPattern() {
         SharedPreferences preferences = mHelpers.getPreferenceManager();
         int patternValue = preferences.getInt("selectedFreq" , 2131230787);
         mPatternGroup.check(patternValue);

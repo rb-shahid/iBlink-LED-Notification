@@ -93,6 +93,8 @@ public class Blinker extends BroadcastReceiver implements CameraStateChangeListe
             blinkForSMS();
         } else if (mIntentAction.equals(CALL_ACTION) && mHelpers.isCallBlinkingEnabled()) {
             blinkForCall();
+        } else {
+            mFlashlight.releaseAllResources();
         }
     }
 
