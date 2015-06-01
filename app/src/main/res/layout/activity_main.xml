@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
@@ -46,13 +46,14 @@
             android:layout_height="match_parent"
             android:text="Select Pattern "
             android:textColor="@android:color/holo_blue_dark"
-            android:gravity="center"
+            android:gravity="left"
             android:textSize="20sp"
             android:layout_margin="10dp"/>
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pattern_group">
+            android:id="@+id/pattern_group"
+            android:layout_marginLeft="10dp">
 
             <RadioButton
                 android:layout_width="wrap_content"
