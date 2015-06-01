@@ -22,13 +22,14 @@ public class Blinker extends BroadcastReceiver implements CameraStateChangeListe
         mHelpers = new Helpers(context.getApplicationContext());
         pattern = mHelpers.getSelectedPattern();
         mIntentAction = intent.getAction();
-        if (mIntentAction.equals(SMS_ACTION) ||
-                mIntentAction.equals(CALL_ACTION)) {
-            if (mHelpers.isSmsBlinkingEnabled() || mHelpers.isCallBlinkingEnabled()) {
-                mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
-                mFlashlight.setOnCameraStateChangedListener(this);
-                mFlashlight.initializeCamera();
-            }
+        if (mIntentAction.equals(SMS_ACTION) && mHelpers.isSmsBlinkingEnabled() ) {
+            mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
+            mFlashlight.setOnCameraStateChangedListener(this);
+            mFlashlight.initializeCamera();
+        } else if (mIntentAction.equals(CALL_ACTION) && mHelpers.isCallBlinkingEnabled()) {
+            mFlashlight = new com.byteshaft.ezflashlight.Flashlight(context);
+            mFlashlight.setOnCameraStateChangedListener(this);
+            mFlashlight.initializeCamera();
         }
     }
 
@@ -93,8 +94,6 @@ public class Blinker extends BroadcastReceiver implements CameraStateChangeListe
             blinkForSMS();
         } else if (mIntentAction.equals(CALL_ACTION) && mHelpers.isCallBlinkingEnabled()) {
             blinkForCall();
-        } else {
-            mFlashlight.releaseAllResources();
         }
     }
 
