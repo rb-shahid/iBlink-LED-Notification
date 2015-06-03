@@ -33,7 +33,6 @@ public class MainActivity extends Activity implements Switch.OnCheckedChangeList
         mSmsSwitch.setOnCheckedChangeListener(this);
         setFinishOnTouchOutside(false);
         getSelectedPattern();
-
     }
 
     @Override
